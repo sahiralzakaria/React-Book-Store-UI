@@ -87,3 +87,23 @@
     font-weight: 500;
     letter-spacing: 3px;
 }
+
+@media(max-width: 720px) {
+    .slide-info-wrapper {
+        margin-right: 20px;
+    }
+
+    .slide-info-title {
+        font-size: 25px;
+    }
+
+    .slide-info-desc {
+        font-size: 17px;
+    }
+}
+
+@media(max-width: 520px) {
+    .slider-container {
+        display: none;
+    }
+}
