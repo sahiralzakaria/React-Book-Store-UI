@@ -55,6 +55,7 @@
 }
 
 .book-slide-item-img {
+    min-height: 300px;
     width: 60%;
     object-fit: contain;
 }

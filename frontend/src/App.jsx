@@ -5,7 +5,7 @@ import { Header } from './components/header/Header'
 import HeadingTitle from './components/heading-title/HeadingTitle'
 import Services from './components/services/Services'
 import Slider from './components/slider/Slider'
-import { books } from './data/books'
+import { bestSellerBooks, mostGiftedBooks, mostWishedForBooks } from './data/books'
 
 function App() {
   return (
@@ -14,12 +14,15 @@ function App() {
       <Header />
       <Slider />
       <Services />
-      <HeadingTitle title='Best Seller' />
-      <BookSlider data={books} />
-      <HeadingTitle title='Most gifted' />
-      <BookSlider data={books} />
-      <HeadingTitle title='Most wished for' />
-      <BookSlider data={books} />
+      <HeadingTitle title="Best Seller" />
+      <BookSlider data={bestSellerBooks} />
+
+      <HeadingTitle title="Most gifted" />
+      <BookSlider data={mostGiftedBooks} />
+
+      <HeadingTitle title="Most wished for" />
+      <BookSlider data={mostWishedForBooks} />
+
     </div>
   )
 }
