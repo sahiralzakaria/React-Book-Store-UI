@@ -82,3 +82,26 @@
     margin: 0 5px;
     color: rgb(56, 56, 56);
 }
+
+/* Rating */
+.rating {
+    color: rgb(255, 218, 9);
+}
+
+.rating i {
+    font-size: 21px;
+    margin-right: 4px;
+}
+
+.rating span:first-of-type {
+    font-weight: 700;
+    font-size: 18px;
+    margin: 0 10px;
+    color: rgb(255, 187, 0);
+}
+
+.rating span:last-of-type {
+    color: gray;
+    font-size: 15px;
+    font-weight: 500;
+}
