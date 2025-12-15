@@ -6,7 +6,7 @@ import book3 from '../../images/book3.png'
 
 const Slider = () => {
 
-    const books = [
+    const slides = [
         {
             img: book1,
             title: "Book Store",
@@ -30,16 +30,16 @@ const Slider = () => {
     // Handle Click
     const handleClick = (direction) => {
         if (direction === "left") {
-            setSlideIndex(slideIndex - 1);
+            setSlideIndex(slideIndex > 0 ? slideIndex - 1 : slides.length - 1);
         } else {
-            setSlideIndex(slideIndex + 1);
+            setSlideIndex(slideIndex < slides.length - 1 ? slideIndex + 1 : 0);
         }
     };
     return (
         <div className='slider-container'>
-            {slideIndex !== 0 && <i onClick={() => handleClick('left')} className="bi bi-chevron-double-left arrow-left"></i>}
+            <i onClick={() => handleClick('left')} className="bi bi-chevron-double-left arrow-left"></i>
             <div className="slider-wrapper" style={{ transform: `translateX(${slideIndex * -100}vw)` }}>
-                {books.map((book, index) => (
+                {slides.map((book, index) => (
                     <div className={`slide slide-${index + 1}`} key={index}>
                         <div className="slide-image-wrapper">
                             <img src={book.img} alt="" />
@@ -57,7 +57,7 @@ const Slider = () => {
 
                 }
             </div>
-            {slideIndex !== books.length - 1 && <i onClick={() => handleClick('right')} className="bi bi-chevron-double-right arrow-right"></i>}
+            <i onClick={() => handleClick('right')} className="bi bi-chevron-double-right arrow-right"></i>
         </div>
 
     )
