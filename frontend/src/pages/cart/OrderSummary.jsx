@@ -1,8 +1,6 @@
 import React from 'react'
-import { cartInfo } from '../../data/cart';
 
-const OrderSummary = () => {
-    const totlaPrice = cartInfo.reduce((acc, cur) => acc + cur.price * cur.quantity, 0).toFixed(2);
+const OrderSummary = ({ totlaPrice }) => {
     return (
         <div className="cart-order-summary">
             <h5 className="order-summary-title">ORDER SUMMARY</h5>
