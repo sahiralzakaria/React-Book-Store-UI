@@ -14,18 +14,14 @@ export const authors = [
         name: "Tony Robbins",
         image: "/authors/tony.jpg",
     },
+
     {
-        id: 4,
-        name: "Elif Shafak",
-        image: "/authors/shafak.jpg",
-    },
-    {
-        id:5,
+        id: 5,
         name: "Brian Tracy",
         image: "/authors/brain.jpg",
     },
     {
-        id:6,
+        id: 6,
         name: "Nassim Nicholas Taleb",
         image: "/authors/nassim.jpg",
     },
@@ -34,11 +30,7 @@ export const authors = [
         name: "Khalil Gibran",
         image: "/authors/khalil.jpg",
     },
-    {
-        id: 8,
-        name: "Debbie Ford",
-        image: "/authors/ford.jpg",
-    },
+
     {
         id: 9,
         name: "Paulo Coelho",
@@ -50,12 +42,12 @@ export const authors = [
         image: "/authors/wayne.jpg",
     },
     {
-        id:11,
+        id: 11,
         name: "Albert Camus",
         image: "/authors/albert.jpg",
     },
     {
-        id:12,
+        id: 12,
         name: "George Orwell",
         image: "/authors/george.jpg",
     },
@@ -80,12 +72,12 @@ export const authors = [
         image: "/authors/mark.jpg",
     },
     {
-        id:17,
+        id: 17,
         name: "Xavier Crement",
         image: "/authors/crement.jpg",
     },
     {
-        id:18,
+        id: 18,
         name: "Rolf Dobelli",
         image: "/authors/rolf.jpg",
     },
@@ -109,44 +101,27 @@ export const authors = [
         name: "James Clear",
         image: "/authors/james.jpg",
     },
+
+
     {
-        id:23,
-        name: "Colleen Hoover",
-        image: "/authors/hoover.jpg",
-    },
-    {
-        id:24,
-        name: "Sajni Patel",
-        image: "/authors/patel.jpg",
-    },
-    {
-        id:25,
-        name: "Taylor Jenkins Reid",
-        image: "/authors/reid.jpg",
-    },
-    {
-        id:26,
+        id: 26,
         name: "Napolen Hill",
         image: "/authors/hill.jpg",
     },
     {
-        id:27,
+        id: 27,
         name: "Chris Voss",
         image: "/authors/voss.jpg",
     },
     {
-        id:28,
+        id: 28,
         name: "Vex King",
         image: "/authors/king.jpg",
     },
+
     {
-        id:29,
-        name: "Juliette Aristides",
-        image:"/authors/j.jpg",
-    },
-    {
-        id:30,
-        name:"Leo Tolstoy",
-        image:"/authors/leo.jpg"
+        id: 30,
+        name: "Leo Tolstoy",
+        image: "/authors/leo.jpg"
     }
 ].sort((a, b) => (a.name > b.name ? 1 : -1));
