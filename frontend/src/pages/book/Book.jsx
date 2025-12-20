@@ -14,7 +14,7 @@ const Book = () => {
     const allBooks = [...bestSellerBooks, ...mostGiftedBooks, ...mostWishedForBooks,];
     const book = allBooks.find((book) => book.id === parseInt(id));
 
-    const [quantity, setQuantity] = useState(1)
+    const [qty, setQty] = useState(1)
     return (
         <div className="book">
             <div className="book-content">
@@ -35,15 +35,16 @@ const Book = () => {
                             type="number"
                             min="1"
                             max="100"
-                            value={quantity}
-                            onChange={(e) => setQuantity(e.target.value)}
+                            value={qty}
+                            onChange={(e) => setQty(e.target.value)}
                         />
                         <button
-                            onClick={() => addToCart({ ...book, quantity })}
+                            onClick={() => addToCart({ ...book, quantity: parseInt(qty) })}
                             className="book-add-to-cart-btn">
                             <i className="bi bi-cart-plus"></i>
                             Add To Cart
                         </button>
+
                     </div>
                 </div>
             </div>
