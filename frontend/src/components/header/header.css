@@ -26,6 +26,8 @@
 
 .header-top-link {
     text-decoration: none;
+    width: 180px;
+    text-align: end;
 }
 
 .header-top-phone,
@@ -93,6 +95,8 @@
 
 .header-middle-cart-wrapper {
     position: relative;
+    width: 150px;
+    text-align: end;
 }
 
 .cart-notification {
