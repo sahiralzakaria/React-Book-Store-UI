@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     const formSubmitHandler = (e) => {
         e.preventDefault();
@@ -23,6 +24,10 @@ const Login = () => {
         // Success example
         toast.success("Logged in successfully!");
     };
+
+    const showPasswordHandler = () => {
+        setShowPassword(prev => !prev)
+    }
     return (
         <div className="form-wrapper">
             <ToastContainer
@@ -49,9 +54,15 @@ const Login = () => {
                 <input
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    type="password"
+                    type={showPassword ? 'text' : "password"}
                     placeholder="Password"
                 />
+
+                {showPassword ?
+                    <i onClick={() => showPasswordHandler()} className='bi bi-eye-slash-fill show-password-icon' ></i>
+                    : <i onClick={() => showPasswordHandler()} className='bi bi-eye-fill show-password-icon' ></i>
+                }
+
 
                 <button className="form-btn" type="submit">
                     Login
