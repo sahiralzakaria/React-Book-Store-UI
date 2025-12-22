@@ -2,17 +2,19 @@ import './about.css'
 const About = () => {
     return (
         <section className="about">
-            <h1>About Me</h1>
 
             <div className="about-container">
 
                 {/* Image Placeholder */}
                 <div className="about-image">
-                    <img src="/profImg.png" alt="Sahir ALZAKARIA" />
+                    <img src="/myProfPic.jpg" alt="Sahir ALZAKARIA" />
                 </div>
 
                 {/* Content */}
                 <div className="about-content">
+                    <h3>Sahir Zakaria</h3>
+                    <p>Web Developer</p>
+
                     <p>
                         <strong>Bachelor’s Degree in Computer Engineering</strong>
                     </p>
@@ -35,7 +37,7 @@ const About = () => {
 
                         <p>
                             🔗 <a
-                                href="https://linkedin.com/in/sahir-zakaria"
+                                href="https://linkedin.com/in/sahir-zakaria-39873531b"
                                 target="_blank"
                                 rel="noreferrer"
                             >
