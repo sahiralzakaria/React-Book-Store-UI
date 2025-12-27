@@ -1,33 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { validateCreateBook, validateUpdateBook } = require('../models/Book');
-const books = [
-    {
-        id: 1,
-        title: "The Hobbit",
-        author: "J.R.R. Tolkien",
-        description: "A fantasy adventure following Bilbo Baggins on a quest with dwarves to reclaim their homeland.",
-        price: 14.99,
-        cover: "https://upload.wikimedia.org/wikipedia/commons/e/e7/The_Hobbit_-_title_page_of_first_American_print.jpg"
-    },
-    {
-        id: 2,
-        title: "1984",
-        author: "George Orwell",
-        description: "A dystopian novel exploring surveillance, totalitarianism, and the loss of individual freedom.",
-        price: 12.99,
-        cover: "https://upload.wikimedia.org/wikipedia/commons/5/51/1984_first_edition_cover.jpg"
-    },
-    {
-        id: 3,
-        title: "The Catcher in the Rye",
-        author: "J.D. Salinger",
-        description: "A coming-of-age story about Holden Caulfield and his search for identity and belonging.",
-        price: 11.49,
-        cover: "https://upload.wikimedia.org/wikipedia/commons/8/89/The_Catcher_in_the_Rye_%281951%2C_first_edition_cover%29.jpg"
-    }
-];
-
+const { validateCreateBook, validateUpdateBook, Book } = require('../models/Book');
+const asyncHandler = require('express-async-handler');
 
 /**
  * @desc Get all books
@@ -35,9 +9,13 @@ const books = [
  * @method GET
  * @access public
 */
-router.get('/', (req, res) => {
-    res.status(200).json(books);
-});
+router.get('/', asyncHandler(
+    async (req, res) => {
+        const books = await Book.find().populate('author', ["firstName", "lastName"]);
+        res.status(200).json(books);
+    }));
+
+
 
 /**
  * @desc Get book by id
@@ -45,14 +23,16 @@ router.get('/', (req, res) => {
  * @method GET
  * @access public
 */
-router.get('/:id', (req, res) => {
-    const book = books.find(b => b.id === parseInt(req.params.id));
-    if (book) {
-        res.status(200).json(book);
-    } else {
-        res.status(404).json({ message: 'the book not found' })
-    }
-});
+router.get('/:id', asyncHandler(
+    async (req, res) => {
+        const book = await Book.findById(req.params.id).populate('author');
+        if (book) {
+            res.status(200).json(book);
+        } else {
+            res.status(404).json({ message: 'the book not found' })
+        }
+    }))
+
 
 /**
  * @desc create new book
@@ -61,25 +41,23 @@ router.get('/:id', (req, res) => {
  * @access public
 */
 
-router.post('/', (req, res) => {
-
-    const { error } = validateCreateBook(req.body);
-    if (error) {
-        return res.status(400).json({ message: error.details[0].message });
-    }
-
-    const book = {
-        id: books.length + 1,
-        title: req.body.title,
-        author: req.body.author,
-        description: req.body.description,
-        price: req.body.price,
-        cover: req.body.cover
-    };
-
-    books.push(book);
-    res.status(201).json(book); // 201 => created Successfully
-});
+router.post('/', asyncHandler(
+    async (req, res) => {
+        const { error } = validateCreateBook(req.body);
+        if (error) {
+            return res.status(400).json({ message: error.details[0].message });
+        }
+        const book = new Book({
+            title: req.body.title,
+            author: req.body.author,
+            description: req.body.description,
+            price: req.body.price,
+            cover: req.body.cover
+        })
+        const result = await book.save();
+        res.status(201).json(result);
+    })
+);
 
 /**
  * @desc Update a book
@@ -88,22 +66,30 @@ router.post('/', (req, res) => {
  * @access public
 */
 
-router.put('/:id', (req, res) => {
+router.put('/:id', asyncHandler(
+    async (req, res) => {
+        const { error } = validateUpdateBook(req.body);
+        if (error) {
+            return res.status(400).json({ message: error.details[0].message });
+        }
 
-    const { error } = validateUpdateBook(req.body);
+        const updatedBook = await Book.findByIdAndUpdate(req.params.id, {
+            $set: {
+                title: req.body.title,
+                author: req.body.author,
+                description: req.body.description,
+                price: req.body.price,
+                cover: req.body.cover
+            }
+        }, { new: true });
 
-    if (error) {
-        return res.status(400).json({ message: error.details[0].message });
+        res.status(200).json(updatedBook);
+
+
     }
+)
 
-    const book = books.find(b => b.id === parseInt(req.params.id));
-    if (book) {
-        res.status(200).json({ message: 'book has been updated' });
-    } else {
-        res.status(404).json({ message: 'book not found' })
-    }
-
-})
+)
 
 /**
  * @desc Delete a book
@@ -112,16 +98,18 @@ router.put('/:id', (req, res) => {
  * @access public
 */
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', asyncHandler(
+    async (req, res) => {
+        const book = await Book.findById(req.params.id);
 
-    const book = books.find(b => b.id === parseInt(req.params.id));
-    if (book) {
-        res.status(200).json({ message: 'book has been deleted' });
-    } else {
-        res.status(404).json({ message: 'book not found' })
-    }
+        if (book) {
+            await Book.findByIdAndDelete(req.params.id);
+            res.status(200).json({ message: 'book has been deleted' });
+        } else {
+            res.status(404).json({ message: 'book not found' })
+        }
 
-})
+    }))
 
 
 
