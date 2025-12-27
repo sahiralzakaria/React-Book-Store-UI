@@ -1,7 +1,6 @@
 const express = require('express');
-const Joi = require('joi');
 const router = express.Router();
-
+const { validateCreateBook, validateUpdateBook } = require('../models/Book');
 const books = [
     {
         id: 1,
@@ -125,32 +124,6 @@ router.delete('/:id', (req, res) => {
 })
 
 
-// validate create book
 
-function validateCreateBook(obj) {
-    const schema = Joi.object({
-        title: Joi.string().trim().min(3).max(200).required(),
-        author: Joi.string().trim().min(3).max(200).required(),
-        description: Joi.string().trim().min(3).max(500).required(),
-        price: Joi.number().positive().required(),
-        cover: Joi.string().trim().required()
-    });
-
-    return schema.validate(obj);
-}
-
-// validate update book
-
-function validateUpdateBook(obj) {
-    const schema = Joi.object({
-        title: Joi.string().trim().min(3).max(200),
-        author: Joi.string().trim().min(3).max(200),
-        description: Joi.string().trim().min(3).max(500),
-        price: Joi.number().positive(),
-        cover: Joi.string().trim()
-    });
-
-    return schema.validate(obj);
-}
 module.exports = router;
 
