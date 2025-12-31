@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const asyncHandler = require('express-async-handler')
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const { User, validateRegisterUser, validateLoginUser } = require("../models/User")
 
 /**
@@ -33,7 +34,7 @@ router.post("/register", asyncHandler(async (req, res) => {
     })
 
     const result = await user.save();
-    const token = null;
+    const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET_KEY);
 
     const { password, ...other } = result._doc;
     res.status(201).json({ ...other, token });
@@ -65,7 +66,7 @@ router.post("/login", asyncHandler(async (req, res) => {
     }
 
 
-    const token = null;
+    const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET_KEY,);
 
     const { password, ...other } = user._doc;
     res.status(200).json({ ...other, token });
