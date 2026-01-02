@@ -5,14 +5,20 @@ const { validateCreateBook, validateUpdateBook, Book } = require('../models/Book
 const asyncHandler = require('express-async-handler');
 
 /**
- * @desc Get all books
+ * @desc Get all books with Filtering
  * @route /api/books
  * @method GET
  * @access public
 */
 router.get('/', asyncHandler(
     async (req, res) => {
-        const books = await Book.find().populate('author', ["firstName", "lastName"]);
+        const { minPrice, maxPrice } = req.query;
+        let books;
+        if (minPrice && maxPrice) {
+            books = await Book.find({ price: { $gte: minPrice, $lte: maxPrice } }).populate('author', ["_id", "firstName", "lastName"]);
+        } else {
+            books = await Book.find().populate('author', ["_id", "firstName", "lastName"]);
+        }
         res.status(200).json(books);
     }));
 
